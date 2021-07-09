@@ -11,7 +11,7 @@ let groupCallHost = false;
 export const connectWithMyPeer = () => {
   myPeer = new window.Peer(undefined, {
     config: {
-      iceServers: [...getTurnServers(), { url : 'stun:stun.l.google.com:13902'}]
+      iceServers: [...getTurnServers(), { url : 'stun:stun.l.google.com:19302'}]
     }
   });
 

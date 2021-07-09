@@ -12,7 +12,7 @@ import {
   setMessage,
 } from "../../store/actions/callActions";
 import * as wss from "../wssConnection/wssConnection";
-import { setTurnServers } from "./TURN";
+import { getTurnServers } from "./TURN";
 
 const preOfferAnswers = {
   CALL_ACCEPTED: "CALL_ACCEPTED",
@@ -60,10 +60,11 @@ export function stopBothVideoAndAudio(stream) {
 
 // make a peer connection
 const createPeerConnection = () => {
-  const turnServers = setTurnServers();
+  const turnServers = getTurnServers();
+
   const configuration = {
-    iceServers: [...turnServers, { urls: "stun:stun.l.google.com:13902" }],
-    iceTransportPolicy: "relay",
+    iceServers: [...turnServers, { url: 'stun:stun.l.google.com:19302'}],
+    iceTransportPolicy: 'relay',
   };
 
   peerConnection = new RTCPeerConnection(configuration);

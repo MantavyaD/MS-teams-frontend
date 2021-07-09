@@ -1,9 +1,9 @@
-let turnServers =[];
+let turnServers = [];
 
 export const getTurnServers = () => {
-    return turnServers;
-}
+  return turnServers;
+};
 
-export const setTurnServers = (servers) =>{
-    turnServers= servers;
-}
+export const setTurnServers = (servers) => {
+  turnServers = servers;
+};
