@@ -69,8 +69,8 @@ const createPeerConnection = () => {
 
   // configuring the ice servers
   const configuration = {
-    iceServers: [...turnServers, { url: "stun:stun.l.google.com:19302" }],
-    iceTransportPolicy: "relay",
+    iceServers: [...turnServers, { url: 'stun:stun.l.google.com:19302'}],
+    iceTransportPolicy: 'relay',
   };
 
   peerConnection = new RTCPeerConnection(configuration);

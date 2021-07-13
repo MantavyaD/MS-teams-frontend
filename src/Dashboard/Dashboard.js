@@ -19,7 +19,7 @@ const Dashboard = ({ username, callState, handleLogout}) => {
   useEffect(() => {
     axios.get('https://msteams-backend.herokuapp.com/api/get-turn-credentials').then(
       responseData => {
-        // console.log(responseData);
+        console.log(responseData);
         setTurnServers(responseData.data.token.iceServers);
         webRTCHandler.getLocalStream();
         webRTCGroupHandler.connectWithMyPeer();
