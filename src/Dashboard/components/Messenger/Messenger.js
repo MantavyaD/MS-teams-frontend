@@ -1,27 +1,22 @@
 import React, { useState, useEffect } from 'react';
+import store from '../../../store/store';
 import { sendMessageUsingDataChannel } from '../../../utils/webRTC/webRTCHandler';
+import { setMessages } from '../../../store/actions/callActions';
 import MessageDisplayer from './MessageDisplayer';
-
 import './Messenger.css';
 
-const Messenger = ({ message, setDirectCallMessage }) => {
-  const [inputValue, setInputValue] = useState('');
 
+
+const Messenger = ({ messages, setDirectCallMessages }) => {
+  const [inputValue, setInputValue] = useState('');
   const handleOnKeyDownEvent = (e) => {
+    console.log("checking if listening event");
     if (e.keyCode === 13) {
       sendMessageUsingDataChannel(inputValue);
+      messages.push([inputValue,"outgoing"]);
       setInputValue('');
     }
   };
-
-  useEffect(() => {
-    if (message.received) {
-      setTimeout(() => {
-        setDirectCallMessage(false, '');
-      }, [3000]);
-    }
-  }, [message.received]);
-
   return (
     <>
       <input
@@ -32,7 +27,7 @@ const Messenger = ({ message, setDirectCallMessage }) => {
         onKeyDown={handleOnKeyDownEvent}
         placeholder='Type your message'
       />
-      {message.received && <MessageDisplayer message={message.content} />}
+      {<MessageDisplayer messages={messages} />}
     </>
   );
 };

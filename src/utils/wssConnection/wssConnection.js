@@ -4,7 +4,9 @@ import * as dashboardActions from '../../store/actions/dashboardActions';
 import * as webRTCHandler from '../webRTC/webRTCHandler';
 import * as webRTCGroupCallHandler from '../webRTC/webRTCGroupCallHandler';
 
-const SERVER = 'https://msteams-backend.herokuapp.com/';
+// the backend of teams deployed at this server
+// const SERVER = 'https://msteams-backend.herokuapp.com/';
+const SERVER = 'http://localhost:5000';
 
 const broadcastEventTypes = {
   ACTIVE_USERS: 'ACTIVE_USERS',
@@ -60,6 +62,12 @@ export const connectWithWebSocket = () => {
   socket.on('group-call-user-left', (data) => {
     webRTCGroupCallHandler.removeInactiveStream(data);
   });
+
+  // create a new message sent by server
+  socket.on('create new message', (data) => {
+    console.log('client recieved the sent message');
+    webRTCGroupCallHandler.addMessage(data);
+  })
 };
 
 export const registerNewUser = (username) => {
@@ -69,6 +77,7 @@ export const registerNewUser = (username) => {
   });
 };
 export const userLoggedOut = (username)=>{
+  // add the logic here to exit the group meeting as well
   socket.emit('disconnects',{
     username: username,
     socketId: socket.id
@@ -118,12 +127,21 @@ export const groupCallClosedByHost = (data) => {
   socket.emit('group-call-closed-by-host', data);
 };
 
+// to send message to server
+export const sendMessage = (data) =>{
+  console.log('sent from frontend');
+  socket.emit('message',(data));
+}
+
+// handle the broadcast events emmited
 const handleBroadcastEvents = (data) => {
   switch (data.event) {
+    // regarding active users updation
     case broadcastEventTypes.ACTIVE_USERS:
       const activeUsers = data.activeUsers.filter(activeUser => activeUser.socketId !== socket.id);
       store.dispatch(dashboardActions.setActiveUsers(activeUsers));
       break;
+      // reagrding group call rooms updation
     case broadcastEventTypes.GROUP_CALL_ROOMS:
       const groupCallRooms = data.groupCallRooms.filter(room => room.socketId !== socket.id);
       const activeGroupCallRoomId = webRTCGroupCallHandler.checkActiveGroupCall();

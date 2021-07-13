@@ -13,6 +13,11 @@
 
 .direct_call_dialog_caller_name {
   font-size: 30px;
+  position: relative;
+  top: -43px;
+  color: black;
+  font-weight: 600;
+  font-family: 'Libre Baskerville', serif;  
 }
 
 .direct_call_dialog_button_container {

@@ -1,34 +1,37 @@
 .active_user_list_container {
-  position: absolute;
-  top: 61px;
+  top: 40px;
   width: 100%;
   height: 80%;
+  position: relative;
 }
 
 .active_user_list_item {
-  width: 21%;
-  height: 80px;
-  display: flex;
-  align-items: center;
-  transition: 0.3s;
+  width: 100%;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    transition: 0.3s;
 }
 
 .active_user_list_item:hover {
-  background-color: #8a85ff;
+  background-color: #ffffff;
   cursor: pointer;
 }
 
 .active_user_list_image_container {
-  width: 60px;
+  width: 50px;
   margin-left: 40px;
   margin-right: 40px;
 }
 
 .active_user_list_text {
-  font-size: x-large;
+  font-size: 30px;
+  color: black;
+  font-family: 'Libre Baskerville', serif;
+   
   /* font-weight: 600; */
 }
 
 .active_user_list_image {
-  width: 100%;
+  width: 90%;
 }

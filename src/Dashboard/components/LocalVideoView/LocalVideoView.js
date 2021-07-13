@@ -2,20 +2,20 @@ import React, { useRef, useEffect } from 'react';
 
 const styles = {
   videoContainer: {
-    width: '200px',
+    width: '160px',
     // height: '165px',
     // border: 'solid',
     // borderColor: 'black',
     // borderRadius: '10px',
     position: 'absolute',
     top: '10%',
-    right: '2%'
+    left: '20.2%'
   },
   videoElement: {
     width: '100%',
     height: '100%',
     borderRadius: '15px',
-    border: 'solid 2px black'
+    border: 'solid 1px black'
   }
 };
 

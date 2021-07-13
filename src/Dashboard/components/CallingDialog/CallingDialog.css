@@ -9,6 +9,8 @@
   align-items: center;
   justify-content: center;
   border-radius: 8px;
+  color: black;
+  font-family: 'Libre Baskerville', serif;
 }
 
 .direct_call_dialog_caller_name {

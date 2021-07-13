@@ -10,7 +10,7 @@ const styles = {
     width: '40px',
     height: '40px',
     borderRadius: '40px',
-    border: '2px solid #e6e5e8',
+    border: '2px solid rgb(4 1 12)',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',

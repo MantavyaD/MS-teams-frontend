@@ -10,6 +10,7 @@ import {
   setScreenSharingActive,
   resetCallDataState,
   setMessage,
+  setMessages,
 } from "../../store/actions/callActions";
 import * as wss from "../wssConnection/wssConnection";
 import { getTurnServers } from "./TURN";
@@ -31,6 +32,9 @@ const defaultConstrains = {
 let connectedUserSocketId;
 let peerConnection;
 let dataChannel;
+let messages=[];
+
+
 
 // getting the local stream
 export const getLocalStream = () => {
@@ -60,17 +64,19 @@ export function stopBothVideoAndAudio(stream) {
 
 // make a peer connection
 const createPeerConnection = () => {
-  const turnServers = getTurnServers();
+  
+  const turnServers = getTurnServers();// getting the turn servers
 
+  // configuring the ice servers
   const configuration = {
-    iceServers: [...turnServers, { url: 'stun:stun.l.google.com:19302'}],
-    iceTransportPolicy: 'relay',
+    iceServers: [...turnServers, { url: "stun:stun.l.google.com:19302" }],
+    iceTransportPolicy: "relay",
   };
 
   peerConnection = new RTCPeerConnection(configuration);
-
   const localStream = store.getState().call.localStream;
 
+  // adding track to the list of tracks
   for (const track of localStream.getTracks()) {
     peerConnection.addTrack(track, localStream);
   }
@@ -88,6 +94,9 @@ const createPeerConnection = () => {
     };
 
     dataChannel.onmessage = (event) => {
+      // var el = document.createElement("p");
+      messages.push([event.data,"incoming"]);
+      store.dispatch(setMessages(messages));
       store.dispatch(setMessage(true, event.data));
     };
   };
@@ -95,6 +104,7 @@ const createPeerConnection = () => {
   dataChannel = peerConnection.createDataChannel("chat");
 
   dataChannel.onopen = () => {
+    messages=[];
     console.log("chat data channel succesfully opened");
   };
 
@@ -169,7 +179,7 @@ export const handlePreOfferAnswer = (data) => {
   } else {
     let rejectionReason;
     if (data.answer === preOfferAnswers.CALL_NOT_AVAILABLE) {
-      rejectionReason = "Callee is not able to pick up the call right now";
+      rejectionReason = "Callee is Busy";
     } else {
       rejectionReason = "Call rejected by the callee";
     }
@@ -285,6 +295,7 @@ const resetCallDataAfterHangUp = () => {
   peerConnection = null;
   createPeerConnection();
   resetCallData();
+  messages.length=0;
 
   const localStream = store.getState().call.localStream;
   localStream.getVideoTracks()[0].enabled = true;
@@ -304,6 +315,8 @@ export const resetCallData = () => {
   store.dispatch(setCallState(callStates.CALL_AVAILABLE));
 };
 
+// to send messages data using RTCdatachannel
 export const sendMessageUsingDataChannel = (message) => {
+  // console.log("sending");
   dataChannel.send(message);
 };

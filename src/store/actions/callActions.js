@@ -19,6 +19,8 @@ export const CALL_SET_GROUP_CALL_ACTIVE = 'CALL.CALL_SET_GROUP_CALL_ACTIVE';
 export const CALL_SET_GROUP_CALL_STREAMS = 'CALL.SET_GROUP_CALL_STREAMS';
 export const CALL_CLEAR_GROUP_CALL_DATA = 'CALL.CLEAR_GROUP_CALL_DATA';
 export const CALL_SET_CHAT_MESSAGE = 'CALL.SET_CHAT_MESSAGE';
+export const CALL_SET_MESSAGES = 'CALL.SET_MESSAGES';
+export const CALL_SET_GROUP_MESSAGES = 'CALL.SET_GROUP_MESSAGES';
 
 export const setLocalStream = (localStream) => {
   return {
@@ -123,5 +125,19 @@ export const setMessage = (messageReceived, messageContent) => {
       received: messageReceived,
       content: messageContent
     }
+  };
+};
+
+export const setMessages = (messages) => {
+  return {
+    type: CALL_SET_MESSAGES,
+    messages
+  };
+};
+
+export const setgroupMessages = (group_messages) => {
+  return {
+    type: CALL_SET_GROUP_MESSAGES,
+    group_messages
   };
 };

@@ -2,16 +2,18 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import logo from "../resources/logo.png";
 import { setUsername } from "../store/actions/dashboardActions";
-import { registerNewUser, userLoggedOut } from "../utils/wssConnection/wssConnection";
+import { registerNewUser, userLoggedOut} from "../utils/wssConnection/wssConnection";
 import Login from "./Login";
 import "./LoginPage.css";
 import fire from "./fire";
 import Dashboard from "../Dashboard/Dashboard";
 import store from "../store/store";
 import { stopBothVideoAndAudio } from "./../utils/webRTC/webRTCHandler";
+import * as webRTCGroupCallHandler from '../utils/webRTC/webRTCGroupCallHandler';
 
 
 const LoginPage = ({ saveUsername }) => {
+  // using states for signin
   const [user, setUser] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -81,10 +83,22 @@ const LoginPage = ({ saveUsername }) => {
       );
   };
 
+  // handle the log-out button pressed, signs out from firebase, closes the local stream
+  // and removes from list of active users
   const handleLogout = () => {
     fire.auth().signOut();
+
+    // if the localstream is not null remove it
     const localStream = store.getState().call.localStream;
-    stopBothVideoAndAudio(localStream);
+    if(localStream)
+      stopBothVideoAndAudio(localStream);
+
+    // if the user is in a group meeting and logs out remove him
+    const groupCallActive = store.getState().call. groupCallActive;
+    if(groupCallActive) 
+      webRTCGroupCallHandler.leaveGroupCall();
+
+
     userLoggedOut(email);
   };
 
@@ -119,12 +133,12 @@ const LoginPage = ({ saveUsername }) => {
             <Dashboard handleLogout={handleLogout}/>
           </div>
       ) : (
-        <div className="login-page_login_box background_secondary_color">
+        <div className="login-page_login_box">
           <div className="login-page_logo_container">
             <img className="login-page_logo_image" src={logo} alt="MS Teams" />
           </div>
           <div className="login-page_title_container">
-            <h2>Get on Board</h2>
+            <h1>Get on Board</h1>
           </div>
           <Login
             email={email}

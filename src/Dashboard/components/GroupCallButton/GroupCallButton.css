@@ -16,6 +16,7 @@
   }
   
   .group_call_button:hover {
-    background-color: #8706f0;
-    opacity: 0.5;
+    background-color: #ff95a9;
+    opacity: 0.9;
+    color: black
   }

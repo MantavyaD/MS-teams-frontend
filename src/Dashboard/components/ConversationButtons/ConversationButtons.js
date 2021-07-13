@@ -9,6 +9,7 @@ const styles = {
     position: 'absolute',
     bottom: '22%',
     left: '50%'
+
   },
   icon: {
     width: '25px',

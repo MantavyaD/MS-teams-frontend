@@ -12,7 +12,7 @@ const UsernameInput = (props) => {
         required
         value={email}
         onChange={(event) => {setEmail(event.target.value);}}
-        className='login-page_input username_input background_main_color'
+        className='login-page_input username_input'
       />
 
     <p className="errorMsg_email">{emailError}</p>

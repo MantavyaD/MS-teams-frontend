@@ -19,6 +19,8 @@ const initState = {
     received: false,
     content: "",
   },
+  messages: [],
+  group_messages: [],
 };
 
 const reducer = (state = initState, action) => {
@@ -101,6 +103,16 @@ const reducer = (state = initState, action) => {
       return {
         ...state,
         message: action.message,
+      };
+    case callActions.CALL_SET_MESSAGES:
+      return {
+        ...state,
+        messages: action.messages,
+      };
+    case callActions.CALL_SET_GROUP_MESSAGES:
+      return {
+        ...state,
+        group_messages: action.group_messages,
       };
     default:
       return state;

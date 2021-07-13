@@ -4,6 +4,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: black;
   } 
   
 .login-page_login_box {
@@ -13,6 +14,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: black;
     justify-content: space-evenly;
   }
   
@@ -24,13 +26,13 @@
   }
   
 .login-page_logo_image {
-    width: 300px;
+    width: 170px;
   }
   
   
 .login-page_title_container {
     position: relative;
-    top: -40px ;
+    top: -30px ;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -84,8 +86,9 @@
   }
   
   .login-page_button:hover {
-    background-color: #8706f0;
-    opacity: 0.5;
+    /* background-color: #4276eb; */
+    background-color: cornflowerblue;
+    opacity: 0.9;
   }
 
   .password_input{
@@ -114,7 +117,7 @@
   }
   
   ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-    color: rgb(248, 248, 248);
+    color: black;
     opacity: 1; /* Firefox */
   }
 
