@@ -5,8 +5,8 @@ import * as webRTCHandler from '../webRTC/webRTCHandler';
 import * as webRTCGroupCallHandler from '../webRTC/webRTCGroupCallHandler';
 
 // the backend of teams deployed at this server
-// const SERVER = 'https://msteams-backend.herokuapp.com/';
-const SERVER = 'http://localhost:5000';
+const SERVER = 'https://msteams-backend.herokuapp.com/';
+// const SERVER = 'http://localhost:5000';
 
 const broadcastEventTypes = {
   ACTIVE_USERS: 'ACTIVE_USERS',
